@@ -1,0 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
+
+public class LobbyManager : MonoBehaviourPunCallbacks
+{
+    public void JoinorCreateRoom()
+    {
+        PhotonNetwork.JoinRandomRoom();
+    }
+
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 2 });
+    }
+
+    public override void OnJoinedRoom()
+    {
+        PhotonNetwork.LoadLevel("Game");
+    }
+
+    
+}
